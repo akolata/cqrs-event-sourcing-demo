@@ -70,6 +70,10 @@ class Offer implements Serializable {
     @Column(name = "last_event_uuid", nullable = false)
     private UUID lastEventUUID;
 
+    @Version
+    @Column(name = "version", nullable = false)
+    private Long version;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

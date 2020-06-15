@@ -21,4 +21,5 @@ class OfferResponse {
     private LocalDateTime paidAt;
     private String paidBy;
     private OfferStatus status;
+    private Long version;
 }

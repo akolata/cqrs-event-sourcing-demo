@@ -18,4 +18,5 @@ public class OfferDto {
     private LocalDateTime paidAt;
     private String paidBy;
     private OfferStatus status;
+    private Long version;
 }
