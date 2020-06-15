@@ -8,7 +8,6 @@ import pl.akolata.offer.domain.event.OfferCreatedEvent;
 import pl.akolata.offer.domain.event.OfferPaidEvent;
 import pl.akolata.offer.domain.event.OfferUpdatedEvent;
 import pl.akolata.offer.domain.infrastructure.event.OfferEvent;
-import pl.akolata.offer.domain.port.shared.OfferState;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

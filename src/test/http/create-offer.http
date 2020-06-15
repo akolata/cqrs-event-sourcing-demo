@@ -1,0 +1,7 @@
+POST http://localhost:8080/api/offers
+Content-Type: application/json
+
+{
+  "productName": "Computer",
+  "amount": 1
+}

@@ -1,0 +1,85 @@
+package pl.akolata.offer.query.db;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.Type;
+import pl.akolata.offer.query.OfferStatus;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.Objects;
+import java.util.UUID;
+
+@Entity
+@Table(
+        name = "offer",
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        name = "offer_uuid_uk",
+                        columnNames = Offer.COLUMN_UUID
+                )
+        }
+)
+@Getter
+@Setter
+@NoArgsConstructor
+class Offer implements Serializable {
+    static final String COLUMN_UUID = "uuid";
+    private static final String SEQUENCE_GENERATOR = "offer_seq";
+    @Id
+    @Column(name = "id", nullable = false)
+    @SequenceGenerator(name = SEQUENCE_GENERATOR, sequenceName = SEQUENCE_GENERATOR, allocationSize = 1)
+    @GeneratedValue(generator = SEQUENCE_GENERATOR, strategy = GenerationType.SEQUENCE)
+    private Long id;
+
+    @Type(type="org.hibernate.type.UUIDCharType")
+    @Column(name = COLUMN_UUID, nullable = false, updatable = false)
+    private UUID uuid;
+
+    @Column(name = "product_name")
+    private String productName;
+
+    @Column(name = "amount")
+    private BigDecimal amount;
+
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+
+    @Column(name = "created_by")
+    private String createdBy;
+
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
+    @Column(name = "updated_by")
+    private String updatedBy;
+
+    @Column(name = "paid_at")
+    private LocalDateTime paidAt;
+
+    @Column(name = "paid_by")
+    private String paidBy;
+
+    @Column(name = "status", nullable = false)
+    private OfferStatus status;
+
+    @Type(type="org.hibernate.type.UUIDCharType")
+    @Column(name = "last_event_uuid", nullable = false)
+    private UUID lastEventUUID;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Offer offer = (Offer) o;
+        return uuid.equals(offer.uuid);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(uuid);
+    }
+}

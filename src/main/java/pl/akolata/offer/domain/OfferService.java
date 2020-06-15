@@ -20,9 +20,10 @@ class OfferService {
 
     void store(Offer offer) {
         List<OfferEvent> pendingEvents = offer.getPendingEvents();
+        int noOfEvents = pendingEvents.size();
         pendingEvents.forEach(this::saveAndPublish);
         offer.markEventsAsCommitted();
-        log.info("Offer with UUID [{}] stored, [{}] pending events saved and published", offer.getUuid(), pendingEvents.size());
+        log.info("Offer with UUID [{}] stored, [{}] pending events saved and published", offer.getUuid(), noOfEvents);
     }
 
     Offer load(UUID uuid) {

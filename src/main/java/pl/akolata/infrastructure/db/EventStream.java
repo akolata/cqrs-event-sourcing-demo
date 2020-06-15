@@ -3,6 +3,7 @@ package pl.akolata.infrastructure.db;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ public class EventStream {
     @SequenceGenerator(name = "event_stream_seq", sequenceName = "event_stream_seq", allocationSize = 1)
     private Long id;
 
+    @Type(type = "org.hibernate.type.UUIDCharType")
     @Column(nullable = false, name = COLUMN_UUID, length = 36)
     private UUID uuid;
 

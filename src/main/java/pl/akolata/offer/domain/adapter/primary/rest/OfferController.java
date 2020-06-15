@@ -14,7 +14,6 @@ import java.util.UUID;
 
 @Slf4j
 @RestController
-@RequestMapping(value = OfferController.OFFERS_URL)
 @RequiredArgsConstructor
 class OfferController {
     static final String OFFERS_URL = "/api/offers";
@@ -23,6 +22,7 @@ class OfferController {
     private final OfferServiceRest offerService;
 
     @PostMapping(
+            path = OFFERS_URL,
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
     ResponseEntity<Void> createOffer(@RequestBody @Valid CreateOfferRequest request) {
@@ -42,5 +42,16 @@ class OfferController {
         String updatedBy = "rest-api-user"; // Can be replaced with Spring Security user
         offerService.updateOffer(offerUUID, request, updatedBy, LocalDateTime.now());
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping(
+            path = OFFER_URL,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    ResponseEntity<OfferResponse> getOffer(@PathVariable UUID offerUUID) {
+        log.info("GET request on [{}]", OFFERS_URL + "/" + offerUUID);
+        return offerService.findOffer(offerUUID)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 }

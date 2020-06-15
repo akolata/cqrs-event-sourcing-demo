@@ -1,0 +1,2 @@
+GET  http://localhost:8080/api/offers/f99c147f-5ed1-4d8c-b1d0-8d368b4aab55
+Accept: application/json
